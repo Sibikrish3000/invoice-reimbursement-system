@@ -21,23 +21,16 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install pip, wheel, and setuptools
-        run: |
-          python -m pip install --upgrade pip wheel setuptools
-
       - name: Install dependencies
         run: |
+          python -m pip install --upgrade pip wheel setuptools
           pip install -r requirements.txt
           pip install pytest
-        
-      - name: Set PYTHONPATH
-        run: echo "PYTHONPATH=$PWD" >> $GITHUB_ENV
 
       - name: Run tests
         env:
-          
-          OPENAI_API_KEY: ${{ env.OPENAI_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          # If using a custom OpenAI-compatible endpoint:
+          OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}  # Optional
         run: |
-          export OPENAI_BASE_URL=${{ env.OPENAI_BASE_URL }}
-          export OPENAI_API_KEY=${{ env.OPENAI_API_KEY }}
           pytest --maxfail=1 --disable-warnings -v

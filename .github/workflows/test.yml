@@ -35,7 +35,7 @@ jobs:
 
       - name: Run tests
         env:
-          OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_BASE_URL: ${{ env.OPENAI_BASE_URL }}
+          OPENAI_API_KEY: ${{ env.OPENAI_API_KEY }}
         run: |
           pytest --maxfail=1 --disable-warnings -v

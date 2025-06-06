@@ -7,6 +7,7 @@ chromadb==0.4.22
 pypdf==4.0.1
 python-dotenv==1.0.1
 pydantic>=2.7.0
+pydantic-settings==2.9.1
 sentence-transformers==2.5.1
 python-jose==3.3.0
 passlib==1.7.4

@@ -27,15 +27,16 @@ class VectorStore:
 
     def store_analysis(self, analysis: InvoiceAnalysis) -> None:
         """Store an invoice analysis in the vector store."""
-        # Convert analysis to dictionary
-        analysis_dict = analysis.model_dump()
+        metadata = analysis.dict()
+        # Remove None values
+        metadata = {k: v for k, v in metadata.items() if v is not None}
 
         # Convert all datetime fields to ISO strings and lists/dicts to JSON strings
-        for key, value in analysis_dict.items():
+        for key, value in metadata.items():
             if isinstance(value, (list, dict)):
-                analysis_dict[key] = json.dumps(value)
+                metadata[key] = json.dumps(value)
             elif hasattr(value, 'isoformat'):
-                analysis_dict[key] = value.isoformat()
+                metadata[key] = value.isoformat()
 
         # Create document text for embedding
         doc_text = f"""
@@ -51,7 +52,7 @@ class VectorStore:
         self.collection.add(
             ids=[analysis.invoice_id],
             documents=[doc_text],
-            metadatas=[analysis_dict]
+            metadatas=[metadata]
         )
 
     def search_analyses(

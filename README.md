@@ -111,7 +111,7 @@ invoice-reimbursement-system/
 
 ## License
 
-MIT License
+ Apache License 2.0
 
 
 ## Containerization

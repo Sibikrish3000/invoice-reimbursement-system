@@ -32,5 +32,6 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           # If using a custom OpenAI-compatible endpoint:
           OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}  # Optional
+          PYTHONPATH: .
         run: |
           pytest --maxfail=1 --disable-warnings -v
